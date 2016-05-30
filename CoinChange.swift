@@ -1,37 +1,39 @@
 
-let V = [1,2,4,6]
-let S = 37
+let Coins = [1,2,4,6]
+let Sum = 37
 
 func dp1() {
-    var state = Array(arrayLiteral: 0)
-    for i in 1...S {
-        if let m = V.filter({$0<=i}).map({state[i-$0]}).filter({$0>=0}).minElement() {
-            state.append(m+1)
+    var state = Array(arrayLiteral: 0) // state[0] = 0
+    for currentSum in 1...Sum {
+        //                                                                               state could be -1, look at row 12
+        if let prev = Coins.filter({$0<=currentSum}).map({state[currentSum-$0]}).filter({$0>=0}).minElement() {
+            state.append(prev+1)
         } else {
             state.append(-1)
         }
     }
-    print(state[S])
+    print(state[Sum])
     print(state)
 }
 
 dp1()
 
 func dp2() {
-    var state = Array(count: S+1, repeatedValue: -1)
+    var state = Array(count: Sum+1, repeatedValue: -1)
     state[0] = 0
-    for v in V {
-        for i in 0...S where v <= i {
-            if state[i-v] == -1 {
-                state[i] == -1
-            } else if state[i] == -1 {
-                state[i] = state[i-v] + 1
+    for coin in Coins {
+        for currentSum in 0...Sum where coin <= currentSum {
+            let prevCount = state[currentSum-coin]
+            if prevCount == -1 {
+                state[currentSum] == -1
+            } else if state[currentSum] == -1 {
+                state[currentSum] = prevCount + 1
             } else {
-                state[i] = min(state[i-v] + 1,state[i])
+                state[currentSum] = min(prevCount+1,state[currentSum])
             }
         }
     }
-    print(state[S])
+    print(state[Sum])
     print(state)
 }
 
