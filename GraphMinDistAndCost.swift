@@ -1,4 +1,6 @@
 
+// https://www.topcoder.com/community/data-science/data-science-tutorials/dynamic-programming-from-novice-to-advanced/
+
 // graph has nodes, edges, weights on edges and costs on nodes
 // find min distance path for available money
 // for equal distances return min cost path
@@ -141,6 +143,7 @@ struct Graph {
                     checked.append(Cell(row: p.v, column: remain, value: 0))
                     for d in 0..<remain where minPath[p.v,d] >= newdist {
                         //print("clean")
+                        //editorial solution is not optimal when checks all unvisited states
                         visited[p.v,d] = 1
                     }
                 }
