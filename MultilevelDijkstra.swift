@@ -102,7 +102,6 @@ while !labels.q.isEmpty {
         let newDist = oldDist + edge.z
         let newMask = label.mask | fishes[edge.v]
         if newDist < dist[edge.v,newMask] {
-            //print("\(label.city+1):\(label.mask) -> \(edge.v+1):\(newMask) \(newDist)")
             dist[edge.v,newMask] = newDist
             labels.add(Label(index: t*edge.v+newMask))
         }
